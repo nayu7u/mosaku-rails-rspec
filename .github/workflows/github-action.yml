@@ -30,6 +30,19 @@ jobs:
       - name: Run rspec
         run: bundle exec rspec
 
+      - name: Simplecov Report
+        uses: aki77/simplecov-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          failedThreshold: 60
+
+      - name: Archive coverage artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: coverage
+          path: coverage
+        if: always()
+
   rubocop:
     runs-on: ubuntu-latest
     timeout-minutes: 10
